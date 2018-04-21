@@ -3,37 +3,34 @@ $('.randomise-btn').click(function() {
 });
 
 function getRandomColour() {
-  $.ajax({
-    url: 'http://www.colr.org/json/color/random',
-    dataType: 'json',
-    success: function (data, textStatus, jqXHR) {
-      let hex = data.colors[0].hex;
-      setColour(hex);
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-     //Error handling code
-     alert('Oops there was an error');
-    }
-   });
+
+  let red = Math.floor(Math.random() * 255);
+  let green = Math.floor(Math.random() * 255);
+  let blue = Math.floor(Math.random() * 255);
+
+  let rgb = {
+    red: red,
+    green: green,
+    blue: blue
+  }
+
+  setColour(rgb);
 }
 
-function setColour(hex) {
-  let colour = '#' + hex;
-  $('body').css('background-color', colour);
+function setColour(rgb) {
 
-  let invertedColour = invertColour(colour);
-  $('h1').css('color', invertedColour);
+  let cssValue = 'rgb('+rgb.red+','+rgb.green+','+rgb.blue+')';
+  $('body').css('background-color', cssValue);
+
+  let textColour = getReadableColour(rgb);
+  $('h1').css('color', textColour);
 }
 
-function invertColour(hexTripletColour) {
-    var colour = hexTripletColour;
-    colour = colour.substring(1);           // remove #
-    colour = parseInt(colour, 16);          // convert to integer
-    colour = 0xFFFFFF ^ colour;             // invert three bytes
-    colour = colour.toString(16);           // convert to hex
-    colour = ("000000" + colour).slice(-6); // pad with leading zeros
-    colour = "#" + colour;                  // prepend #
-    return colour;
+function getReadableColour(rgb) {
+  let brightness = Math.round(((parseInt(rgb.red * 299)) + (parseInt(rgb.green * 587)) * (parseInt(rgb.blue * 114)) / 1000));
+  let textColour = (brightness < 1000000) ? 'white' : 'black';
+
+  return textColour;
 }
 
 // Set a random colour on load
