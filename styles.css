@@ -19,3 +19,14 @@ body {
   width: 250px;
   font-size: 14pt;
 }
+
+.copy-hex-btn {
+  padding: 25px;
+  background-color: white;
+  border: none;
+  color: black;
+  border-radius: 15px;
+  margin-top: 30px;
+  cursor: pointer;
+  font-size: 14pt;
+}
