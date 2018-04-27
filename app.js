@@ -2,10 +2,11 @@ let hexValue;
 
 $('.randomise-btn').click(function() {
   let rgb = getRandomColour();
-  setColour(rgb);
-  convertRGBtoHex(rgb);
+  setBackgroundColour(rgb);
+  hexValue = getHexValue(rgb);
 });
 
+// Get a random colour in RGB format
 function getRandomColour() {
   let red = Math.floor(Math.random() * 255);
   let green = Math.floor(Math.random() * 255);
@@ -18,19 +19,22 @@ function getRandomColour() {
   }
 }
 
-function setColour(rgb) {
+// Set the background colour of the page
+function setBackgroundColour(rgb) {
   let cssValue = 'rgb('+rgb.red+','+rgb.green+','+rgb.blue+')';
   $('body').css('background-color', cssValue);
 }
 
-function componentToHex(c) {
-    var hex = c.toString(16);
-    return hex.length == 1 ? "0" + hex : hex;
+// Convert a number to hexadecimal
+function convertToHex(c) {
+  var hex = c.toString(16);
+  return hex.length == 1 ? "0" + hex : hex;
 }
 
-function convertRGBtoHex(rgb) {
-  hexValue = componentToHex(rgb.red) + componentToHex(rgb.green) + componentToHex(rgb.blue);
+// Get the hex value of a colour from an RGB format
+function getHexValue(rgb) {
+  return convertToHex(rgb.red) + convertToHex(rgb.green) + convertToHex(rgb.blue);
 }
 
-// Set a random colour on load
+// Set a random colour on page load
 $('.randomise-btn').trigger("click");
