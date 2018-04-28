@@ -4,7 +4,7 @@ $('.randomise-btn').click(function() {
   let rgb = getRandomColour();
   setBackgroundColour(rgb);
   hexValue = getHexValue(rgb);
-  $('.copy-hex-btn').text("Copy hex value to clipboard");
+  $('.hex-value').text(hexValue);
 });
 
 // Copy the hex value to clipboard
@@ -13,12 +13,8 @@ $('.copy-hex-btn').click(function() {
   textArea.value = hexValue;
   document.body.appendChild(textArea);
   textArea.select();
-  let copied = document.execCommand("Copy");
+  document.execCommand("Copy");
   textArea.remove();
-
-  if (copied) {
-    $('.copy-hex-btn').text("Copied!");
-  }
 });
 
 // Get a random colour in RGB format
