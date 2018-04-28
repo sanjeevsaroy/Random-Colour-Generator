@@ -2,6 +2,8 @@
 let hexValue;
 let isNightMode = false;
 
+let body = $('body');
+
 // Buttons
 let nightModeButton = $('.night-mode-btn');
 let randomiseButton = $('.randomise-btn');
@@ -11,17 +13,19 @@ let copyHexButton = $('.copy-hex-btn');
 nightModeButton.click(function() {
   if (isNightMode) {
     isNightMode = false;
-    $('body').css('background-color', hexValue);
-    nightModeButton.css('background-color', "white");
-    randomiseButton.css('background-color', "white");
-    copyHexButton.css('background-color', "white");
+    white = "#fff";
+    setBackgroundColour(body, hexValue);
+    setBackgroundColour(nightModeButton, white);
+    setBackgroundColour(randomiseButton, white);
+    setBackgroundColour(copyHexButton, white);
   }
   else {
     isNightMode = true;
-    $('body').css('background-color', "#2d2d2d");
-    nightModeButton.css('background-color', hexValue);
-    randomiseButton.css('background-color', hexValue);
-    copyHexButton.css('background-color', hexValue);
+    darkGray = "#2d2d2d";
+    setBackgroundColour(body, darkGray);
+    setBackgroundColour(nightModeButton, hexValue);
+    setBackgroundColour(randomiseButton, hexValue);
+    setBackgroundColour(copyHexButton, hexValue);
   }
 });
 
@@ -31,12 +35,12 @@ randomiseButton.click(function() {
   hexValue = getHexValue(rgb);
 
   if (isNightMode) {
-    nightModeButton.css('background-color', hexValue);
-    randomiseButton.css('background-color', hexValue);
-    copyHexButton.css('background-color', hexValue);
+    setBackgroundColour(nightModeButton, hexValue);
+    setBackgroundColour(randomiseButton, hexValue);
+    setBackgroundColour(copyHexButton, hexValue);
   }
   else {
-    setBackgroundColour(hexValue);
+    setBackgroundColour(body, hexValue);
   }
 
   copyHexButton.text("Copy hex value to clipboard");
@@ -69,9 +73,9 @@ function getRandomColour() {
   }
 }
 
-// Set the background colour of the page
-function setBackgroundColour(colourValue) {
-  $('body').css('background-color', colourValue);
+// Set the background colour of an element
+function setBackgroundColour(elem, val) {
+  elem.css('background-color', val);
 }
 
 // Convert a number to hexadecimal
