@@ -4,6 +4,17 @@ $('.randomise-btn').click(function() {
   let rgb = getRandomColour();
   setBackgroundColour(rgb);
   hexValue = getHexValue(rgb);
+  $('.hex-value').text(hexValue);
+});
+
+// Copy the hex value to clipboard
+$('.copy-hex-btn').click(function() {
+  var textArea = document.createElement("textarea");
+  textArea.value = hexValue;
+  document.body.appendChild(textArea);
+  textArea.select();
+  document.execCommand("Copy");
+  textArea.remove();
 });
 
 // Get a random colour in RGB format
