@@ -1,8 +1,38 @@
 let hexValue;
+let isNightMode = false;
 
+// Toggle night mode
+$('.night-mode-btn').click(function() {
+  if (isNightMode) {
+    isNightMode = false;
+    $('body').css('background-color', "#"+hexValue);
+    $('.night-mode-btn').css('background-color', "white");
+    $('.randomise-btn').css('background-color', "white");
+    $('.copy-hex-btn').css('background-color', "white");
+  }
+  else {
+    isNightMode = true;
+    $('body').css('background-color', "#2d2d2d");
+    $('.night-mode-btn').css('background-color', "#"+hexValue);
+    $('.randomise-btn').css('background-color', "#"+hexValue);
+    $('.copy-hex-btn').css('background-color', "#"+hexValue);
+  }
+});
+
+// Get a random colour and assign it to the background
 $('.randomise-btn').click(function() {
   let rgb = getRandomColour();
-  setBackgroundColour(rgb);
+
+  if (isNightMode) {
+    let cssValue = 'rgb('+rgb.red+','+rgb.green+','+rgb.blue+')';
+    $('.night-mode-btn').css('background-color', cssValue);
+    $('.randomise-btn').css('background-color', cssValue);
+    $('.copy-hex-btn').css('background-color', cssValue);
+  }
+  else {
+    setBackgroundColour(rgb);
+  }
+
   hexValue = getHexValue(rgb);
   $('.copy-hex-btn').text("Copy hex value to clipboard");
 });
