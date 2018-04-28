@@ -11,7 +11,7 @@ let copyHexButton = $('.copy-hex-btn');
 nightModeButton.click(function() {
   if (isNightMode) {
     isNightMode = false;
-    $('body').css('background-color', "#"+hexValue);
+    $('body').css('background-color', hexValue);
     nightModeButton.css('background-color', "white");
     randomiseButton.css('background-color', "white");
     copyHexButton.css('background-color', "white");
@@ -19,27 +19,26 @@ nightModeButton.click(function() {
   else {
     isNightMode = true;
     $('body').css('background-color', "#2d2d2d");
-    nightModeButton.css('background-color', "#"+hexValue);
-    randomiseButton.css('background-color', "#"+hexValue);
-    copyHexButton.css('background-color', "#"+hexValue);
+    nightModeButton.css('background-color', hexValue);
+    randomiseButton.css('background-color', hexValue);
+    copyHexButton.css('background-color', hexValue);
   }
 });
 
 // Get a random colour and assign it to the background
 randomiseButton.click(function() {
   let rgb = getRandomColour();
+  hexValue = getHexValue(rgb);
 
   if (isNightMode) {
-    let cssValue = 'rgb('+rgb.red+','+rgb.green+','+rgb.blue+')';
-    nightModeButton.css('background-color', cssValue);
-    randomiseButton.css('background-color', cssValue);
-    copyHexButton.css('background-color', cssValue);
+    nightModeButton.css('background-color', hexValue);
+    randomiseButton.css('background-color', hexValue);
+    copyHexButton.css('background-color', hexValue);
   }
   else {
-    setBackgroundColour(rgb);
+    setBackgroundColour(hexValue);
   }
 
-  hexValue = getHexValue(rgb);
   copyHexButton.text("Copy hex value to clipboard");
 });
 
@@ -71,9 +70,8 @@ function getRandomColour() {
 }
 
 // Set the background colour of the page
-function setBackgroundColour(rgb) {
-  let cssValue = 'rgb('+rgb.red+','+rgb.green+','+rgb.blue+')';
-  $('body').css('background-color', cssValue);
+function setBackgroundColour(colourValue) {
+  $('body').css('background-color', colourValue);
 }
 
 // Convert a number to hexadecimal
@@ -84,7 +82,7 @@ function convertToHex(c) {
 
 // Get the hex value of a colour from an RGB format
 function getHexValue(rgb) {
-  return convertToHex(rgb.red) + convertToHex(rgb.green) + convertToHex(rgb.blue);
+  return "#" + convertToHex(rgb.red) + convertToHex(rgb.green) + convertToHex(rgb.blue);
 }
 
 // Set a random colour on page load
