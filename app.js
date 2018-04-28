@@ -1,44 +1,50 @@
+// Properties
 let hexValue;
 let isNightMode = false;
 
+// Buttons
+let nightModeButton = $('.night-mode-btn');
+let randomiseButton = $('.randomise-btn');
+let copyHexButton = $('.copy-hex-btn');
+
 // Toggle night mode
-$('.night-mode-btn').click(function() {
+nightModeButton.click(function() {
   if (isNightMode) {
     isNightMode = false;
     $('body').css('background-color', "#"+hexValue);
-    $('.night-mode-btn').css('background-color', "white");
-    $('.randomise-btn').css('background-color', "white");
-    $('.copy-hex-btn').css('background-color', "white");
+    nightModeButton.css('background-color', "white");
+    randomiseButton.css('background-color', "white");
+    copyHexButton.css('background-color', "white");
   }
   else {
     isNightMode = true;
     $('body').css('background-color', "#2d2d2d");
-    $('.night-mode-btn').css('background-color', "#"+hexValue);
-    $('.randomise-btn').css('background-color', "#"+hexValue);
-    $('.copy-hex-btn').css('background-color', "#"+hexValue);
+    nightModeButton.css('background-color', "#"+hexValue);
+    randomiseButton.css('background-color', "#"+hexValue);
+    copyHexButton.css('background-color', "#"+hexValue);
   }
 });
 
 // Get a random colour and assign it to the background
-$('.randomise-btn').click(function() {
+randomiseButton.click(function() {
   let rgb = getRandomColour();
 
   if (isNightMode) {
     let cssValue = 'rgb('+rgb.red+','+rgb.green+','+rgb.blue+')';
-    $('.night-mode-btn').css('background-color', cssValue);
-    $('.randomise-btn').css('background-color', cssValue);
-    $('.copy-hex-btn').css('background-color', cssValue);
+    nightModeButton.css('background-color', cssValue);
+    randomiseButton.css('background-color', cssValue);
+    copyHexButton.css('background-color', cssValue);
   }
   else {
     setBackgroundColour(rgb);
   }
 
   hexValue = getHexValue(rgb);
-  $('.copy-hex-btn').text("Copy hex value to clipboard");
+  copyHexButton.text("Copy hex value to clipboard");
 });
 
 // Copy the hex value to clipboard
-$('.copy-hex-btn').click(function() {
+copyHexButton.click(function() {
   var textArea = document.createElement("textarea");
   textArea.value = hexValue;
   document.body.appendChild(textArea);
@@ -47,7 +53,7 @@ $('.copy-hex-btn').click(function() {
   textArea.remove();
 
   if (copied) {
-    $('.copy-hex-btn').text("Copied!");
+    copyHexButton.text("Copied!");
   }
 });
 
@@ -82,4 +88,4 @@ function getHexValue(rgb) {
 }
 
 // Set a random colour on page load
-$('.randomise-btn').trigger("click");
+randomiseButton.trigger("click");
