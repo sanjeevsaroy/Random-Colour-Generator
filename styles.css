@@ -17,6 +17,15 @@ button {
   color: black;
 }
 
+.night-mode-btn {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  color: black;
+  padding: 15px 18px;
+  border-radius: 50px;
+}
+
 .randomise-btn {
   border-radius: 50%;
   padding: 0;
