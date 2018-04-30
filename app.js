@@ -3,6 +3,7 @@ let hexValue;
 let isNightMode = false;
 
 let body = $('body');
+let nightModeLabel = $('.night-mode-label');
 
 // Buttons
 let nightModeButton = $('.night-mode-btn');
@@ -13,6 +14,8 @@ let copyHexButton = $('.copy-hex-btn');
 nightModeButton.click(function() {
   if (isNightMode) {
     isNightMode = false;
+    nightModeLabel.text("Off");
+
     let white = "#fff";
 
     setBackgroundColour(hexValue, body);
@@ -20,6 +23,8 @@ nightModeButton.click(function() {
   }
   else {
     isNightMode = true;
+    nightModeLabel.text("On");
+
     let darkGray = "#2d2d2d";
 
     setBackgroundColour(darkGray, body);
