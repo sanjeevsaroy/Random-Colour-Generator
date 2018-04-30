@@ -6,7 +6,7 @@ let isNightMode = false;
 let white = "#fff";
 let darkGray = "#2f2f2f";
 
-const brightnessLimit = 100;
+const brightnessLimit = 125;
 
 let body = $('body');
 let nightModeLabel = $('.night-mode-label');
