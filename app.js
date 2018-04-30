@@ -25,7 +25,7 @@ nightModeButton.click(function() {
     isNightMode = true;
     nightModeLabel.text("On");
 
-    let darkGray = "#2d2d2d";
+    let darkGray = "#2f2f2f";
 
     setBackgroundColour(darkGray, body);
     setBackgroundColour(hexValue, nightModeButton, randomiseButton, copyHexButton);
