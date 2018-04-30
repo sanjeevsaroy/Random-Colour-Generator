@@ -13,19 +13,17 @@ let copyHexButton = $('.copy-hex-btn');
 nightModeButton.click(function() {
   if (isNightMode) {
     isNightMode = false;
-    white = "#fff";
-    setBackgroundColour(body, hexValue);
-    setBackgroundColour(nightModeButton, white);
-    setBackgroundColour(randomiseButton, white);
-    setBackgroundColour(copyHexButton, white);
+    let white = "#fff";
+
+    setBackgroundColour(hexValue, body);
+    setBackgroundColour(white, nightModeButton, randomiseButton, copyHexButton);
   }
   else {
     isNightMode = true;
-    darkGray = "#2d2d2d";
-    setBackgroundColour(body, darkGray);
-    setBackgroundColour(nightModeButton, hexValue);
-    setBackgroundColour(randomiseButton, hexValue);
-    setBackgroundColour(copyHexButton, hexValue);
+    let darkGray = "#2d2d2d";
+
+    setBackgroundColour(darkGray, body);
+    setBackgroundColour(hexValue, nightModeButton, randomiseButton, copyHexButton);
   }
 });
 
@@ -35,12 +33,10 @@ randomiseButton.click(function() {
   hexValue = getHexValue(rgb);
 
   if (isNightMode) {
-    setBackgroundColour(nightModeButton, hexValue);
-    setBackgroundColour(randomiseButton, hexValue);
-    setBackgroundColour(copyHexButton, hexValue);
+    setBackgroundColour(hexValue, nightModeButton, randomiseButton, copyHexButton);
   }
   else {
-    setBackgroundColour(body, hexValue);
+    setBackgroundColour(hexValue, body);
   }
 
   copyHexButton.text("Copy hex value to clipboard");
@@ -73,9 +69,11 @@ function getRandomColour() {
   }
 }
 
-// Set the background colour of an element
-function setBackgroundColour(elem, val) {
-  elem.css('background-color', val);
+// Set the background colour of elements
+function setBackgroundColour(val, ...elements) {
+  for (e of elements) {
+    e.css('background-color', val);
+  }
 }
 
 // Convert a number to hexadecimal
