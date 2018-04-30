@@ -1,6 +1,12 @@
 // Properties
 let hexValue;
+let rgbValue;
 let isNightMode = false;
+
+let white = "#fff";
+let darkGray = "#2f2f2f";
+
+const brightnessLimit = 100;
 
 let body = $('body');
 let nightModeLabel = $('.night-mode-label');
@@ -16,32 +22,32 @@ nightModeButton.click(function() {
     isNightMode = false;
     nightModeLabel.text("Off");
 
-    let white = "#fff";
-
     setBackgroundColour(hexValue, body);
     setBackgroundColour(white, nightModeButton, randomiseButton, copyHexButton);
+    setTextColour(darkGray, nightModeButton, randomiseButton, copyHexButton);
   }
   else {
     isNightMode = true;
     nightModeLabel.text("On");
 
-    let darkGray = "#2f2f2f";
-
     setBackgroundColour(darkGray, body);
     setBackgroundColour(hexValue, nightModeButton, randomiseButton, copyHexButton);
+    determineTextColour();
   }
 });
 
 // Get a random colour and assign it to the background
 randomiseButton.click(function() {
-  let rgb = getRandomColour();
-  hexValue = getHexValue(rgb);
+  rgbValue = getRandomColour();
+  hexValue = getHexValue(rgbValue);
 
   if (isNightMode) {
     setBackgroundColour(hexValue, nightModeButton, randomiseButton, copyHexButton);
+    determineTextColour();
   }
   else {
     setBackgroundColour(hexValue, body);
+    setTextColour(darkGray, nightModeButton, randomiseButton, copyHexButton);
   }
 
   copyHexButton.text("Copy hex value to clipboard");
@@ -60,6 +66,18 @@ copyHexButton.click(function() {
     copyHexButton.text("Copied!");
   }
 });
+
+// Determine the colour of text based on the colour brightness
+function determineTextColour() {
+  let brightness = getBrightness(rgbValue);
+
+  if (brightness <= brightnessLimit) {
+    setTextColour(white, nightModeButton, randomiseButton, copyHexButton);
+  }
+  else {
+    setTextColour(darkGray, nightModeButton, randomiseButton, copyHexButton);
+  }
+}
 
 // Get a random colour in RGB format
 function getRandomColour() {
@@ -81,6 +99,13 @@ function setBackgroundColour(val, ...elements) {
   }
 }
 
+// Set the text colour of elements
+function setTextColour(val, ...elements) {
+  for (e of elements) {
+    e.css('color', val);
+  }
+}
+
 // Convert a number to hexadecimal
 function convertToHex(c) {
   var hex = c.toString(16);
@@ -90,6 +115,15 @@ function convertToHex(c) {
 // Get the hex value of a colour from an RGB format
 function getHexValue(rgb) {
   return "#" + convertToHex(rgb.red) + convertToHex(rgb.green) + convertToHex(rgb.blue);
+}
+
+// Get the brightness of a colour
+function getBrightness(c) {
+  return Math.sqrt(
+     c.red * c.red * .241 +
+     c.green * c.green * .691 +
+     c.blue * c.blue * .068
+   );
 }
 
 // Set a random colour on page load
