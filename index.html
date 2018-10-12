@@ -37,12 +37,12 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
   </head>
 
-  <body ng-app="rcg-app" ng-controller="controller">
+  <body ng-app="rcg-app" ng-controller="controller" style="background-color:{{hexValue}}">
     <button class="night-mode-btn" type="button" name="button">
       <i class="fas fa-moon fa-sm"></i>
       <span class="night-mode-label">Off</span>
     </button>
-    <button ng-click="getRandomColour()" class="randomise-btn" type="button" name="button">Get a new colour</button>
+    <button ng-click="onRandomColourClick()" class="randomise-btn" type="button" name="button">Get a new colour</button>
     <button class="copy-hex-btn" type="button" name="button">Copy hex value to clipboard</button>
 
     <a class="github-link" href="https://github.com/saroyy/Random-Colour-Generator" target="_blank">View on GitHub</a>
